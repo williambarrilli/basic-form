@@ -1,15 +1,15 @@
 'use client'
 import React from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FormProvider, useForm } from 'react-hook-form';
 import styles from './styles.module.scss'
 import { formRegisterValidator } from '@/types/validators/event-form-register';
 import { RegisterEventFormType } from '@/types/event-form-register';
 import { Input } from '@/components/molecules/input';
+import { useForm } from 'react-hook-form';
 
 export default function RegisterEventForm() {
 
-  const methods = useForm<RegisterEventFormType>({
+  const {handleSubmit,register, formState: {errors}} = useForm<RegisterEventFormType>({
     resolver: zodResolver(formRegisterValidator), // Utilizando o zod para validação
   });
 
@@ -17,29 +17,29 @@ export default function RegisterEventForm() {
     console.log('Dados do Formulário:', data);
     alert('Formulário enviado com sucesso!');
   };
-
+console.log(errors)
   return (
-    <FormProvider {...methods}>
 
     <div className={styles["form-container"]}>
       <section className={styles.title}>Registro de evento Interno</section>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
-      <Input name="eventName" label="Nome do Evento" required />
-        <Input name="eventDate" label="Data" type="date" required />
-        <Input name="estimatedParticipants" label="Inscrições Estimadas" type="number" required min={1} />
-        <Input name="averageFee" label="Valor Médio da Inscrição" type="number" min={0} />
-        <Input name="organizer" label="Entidade Realizadora" required />
-        <Input name="budgetResponsible" label="Responsável pelo Orçamento" required />
-        <Input name="contactEmail" label="E-mail de Contato" type="email" required />
-        <Input name="contactPhone" label="Telefone de Contato" required minLength={10} />
-
-
+      <form onSubmit={handleSubmit(onSubmit)} >
+        <section className={styles["container-inputs"]}>
+          <Input {...register('eventName')} label="Nome do Evento" destructive={!!errors?.eventName?.message} hintText={errors?.eventName?.message}/>
+          <Input {...register('eventDate')}label="Data do evento" type='date' destructive={!!errors?.eventDate?.message} hintText={errors?.eventDate?.message}/>
+          <Input {...register('dateSubscribedStart')} label="Data inicio das inscrições" type='date' destructive={!!errors?.dateSubscribedStart?.message} hintText={errors?.dateSubscribedStart?.message}/>
+          <Input {...register('dateSubscribedEnd')} label="Data fim das inscrições"  type='date' destructive={!!errors?.dateSubscribedEnd?.message} hintText={errors?.dateSubscribedEnd?.message}/>
+          <Input {...register('estimatedParticipants')} label="Inscrições Estimadas" destructive={!!errors?.estimatedParticipants?.message} hintText={errors?.estimatedParticipants?.message}/>
+          <Input {...register('averageFee')} label="Valor Médio da Inscrição" mask='currency'destructive={!!errors?.averageFee?.message} hintText={errors?.averageFee?.message}/>
+          <Input {...register('organizer')} label="Entidade Realizadora"destructive={!!errors?.organizer?.message} hintText={errors?.organizer?.message}/>
+          <Input {...register('budgetResponsible')} label="Responsável pelo Orçamento"destructive={!!errors?.budgetResponsible?.message} hintText={errors?.budgetResponsible?.message}/>
+          <Input {...register('contactEmail')} label="E-mail de Contato" type='email'destructive={!!errors?.contactEmail?.message} hintText={errors?.contactEmail?.message}/>
+          <Input {...register('contactPhone')} label="Telefone de Contato" destructive={!!errors?.contactPhone?.message} hintText={errors?.contactPhone?.message}/>
+          </section>
         <div className={styles["form-actions"]}>
           <button type="submit" className={styles["btn-register"]}>Registrar</button>
         </div>
       </form>
     </div>
-    </FormProvider>
   );
 };
 

@@ -1,60 +1,156 @@
-import React from 'react';
-import { useFormContext, Controller } from 'react-hook-form';
+import { forwardRef, ReactNode } from 'react'
+
+import objStr from 'obj-str'
+
 import styles from './styles.module.scss'
 
-interface InputProps {
-  name: string; // Nome do campo no formulário
-  label: string; // Rótulo a ser exibido acima do input
-  type?: string; // Tipo do input (ex: text, number, email)
-  placeholder?: string; // Placeholder do input
-  required?: boolean; // Define se o campo é obrigatório
-  minLength?: number; // Comprimento mínimo (usado com inputs de texto)
-  maxLength?: number; // Comprimento máximo (usado com inputs de texto)
-  min?: number; // Valor mínimo (usado com inputs numéricos)
-  max?: number; // Valor máximo (usado com inputs numéricos)
+import { NumericFormat } from 'react-number-format'
+
+interface InputProps extends React.ComponentPropsWithRef<'input'> {
+  destructive?: boolean
+  hintText?: string
+  icon?: {
+    leading?: React.ReactNode
+    trailing?: React.ReactNode
+  }
+  disabled?: boolean
+  tooltip?: ReactNode
+  mask?: 'text' | 'currency' | 'percentage' | 'cpf'
+  required?: boolean
+  label?: string
 }
 
-export function Input({
-  name,
-  label,
-  type = 'text',
-  placeholder = '',
-  required = false,
-  minLength,
-  maxLength,
-  min,
-  max,
-}: InputProps) {
-  const { control, formState: { errors } } = useFormContext();
+const formatCPF = (cpf: string): string => {
+  return cpf
+    .replace(/\D/g, '')
+    .padStart(11, '0')
+    .replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+}
 
-  return (
-    <div className={styles["input-container"]}>
-      <label htmlFor={name}>{label}</label>
-      <Controller
-        name={name}
-        control={control}
-        rules={{
-          required: required ? 'Este campo é obrigatório' : false,
-          minLength: minLength ? { value: minLength, message: `Mínimo de ${minLength} caracteres` } : undefined,
-          maxLength: maxLength ? { value: maxLength, message: `Máximo de ${maxLength} caracteres` } : undefined,
-          min: min !== undefined ? { value: min, message: `Valor mínimo é ${min}` } : undefined,
-          max: max !== undefined ? { value: max, message: `Valor máximo é ${max}` } : undefined,
-        }}
-        render={({ field }) => (
-          <input
-            {...field}
-            id={name}
-            type={type}
-            placeholder={placeholder}
-            className={styles[errors[name] ? 'error' : '']}
-          />
+
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  (
+    {
+      destructive = false,
+      hintText,
+      icon,
+      label,
+      disabled = false,
+      tooltip,
+      mask = 'text',
+      required = false,
+      ...rest
+    },
+    ref
+  ) => {
+    return (
+      <div className={styles.container}>
+        {!!label && (
+          <>
+            <label htmlFor={label} className={styles['input-label']}>
+              {label} {required && <span className={styles['required-field']}>* </span>} {tooltip}
+            </label>
+          </>
         )}
-      />
-      {errors[name] && (
-        <span className={styles["error-message"]}>
-          {(errors[name]?.message as string) || 'Erro inválido'}
-        </span>
-      )}
-    </div>
-  );
-}
+
+        <div
+          className={objStr({
+            [styles['input-field']]: true,
+            [styles['input-field--icon-leading']]: !!icon?.leading,
+            [styles['input-field--icon-trailing']]: !!icon?.trailing,
+            [styles['input-field--destructive']]: destructive,
+            [styles['input-field--disabled']]: disabled,
+          })}
+        >
+          {icon?.leading}
+
+          {mask === 'text' && (
+            <input
+              id={label ?? ''}
+              {...rest}
+              ref={ref}
+              disabled={disabled}
+              className={objStr({
+                [styles['input']]: true,
+                [styles['input--icon-leading']]: !!icon?.leading,
+                [styles['input--icon-trailing']]: !!icon?.trailing,
+              })}
+            />
+          )}
+          {mask === 'cpf' && (
+            <input
+              id={label ?? ''}
+              {...rest}
+              ref={ref}
+              disabled={disabled}
+              className={objStr({
+                [styles['input']]: true,
+                [styles['input--icon-leading']]: !!icon?.leading,
+                [styles['input--icon-trailing']]: !!icon?.trailing,
+              })}
+              value={formatCPF(String(rest.value ?? ''))}
+            />
+          )}
+
+          {mask === 'percentage' && (
+            <NumericFormat
+              className={objStr({
+                [styles['input']]: true,
+                [styles['input--icon-leading']]: !!icon?.leading,
+                [styles['input--icon-trailing']]: !!icon?.trailing,
+              })}
+              id={label ?? ''}
+              disabled={disabled}
+              decimalScale={2}
+              decimalSeparator=","
+              suffix={'%'}
+              isAllowed={values => {
+                const { floatValue } = values
+                if (floatValue) {
+                  return floatValue <= 100
+                }
+                return true
+              }}
+              placeholder={rest.placeholder}
+              onChange={rest.onChange}
+              value={typeof rest.value === 'string' ? rest.value : ''}
+            />
+          )}
+          {mask === 'currency' && (
+            <NumericFormat
+              className={objStr({
+                [styles['input']]: true,
+                [styles['input--icon-leading']]: !!icon?.leading,
+                [styles['input--icon-trailing']]: !!icon?.trailing,
+              })}
+              id={label ?? ''}
+              disabled={disabled}
+              decimalScale={2}
+              thousandSeparator={'.'}
+              decimalSeparator={','}
+              prefix="R$"
+              placeholder={rest.placeholder}
+              onChange={rest.onChange}
+              value={typeof rest.value === 'string' ? rest.value : ''}
+            />
+          )}
+          {icon?.trailing}
+        </div>
+        {!!hintText && (
+          <span
+            className={objStr({
+              [styles['span--destructive']]: destructive,
+              [styles['hint-text']]: !!hintText,
+              [styles['hint-text--destructive']]: destructive,
+            })}
+          >
+            {hintText}
+          </span>
+        )}
+      </div>
+    )
+  }
+)
+
+Input.displayName = 'Input'
+

@@ -1,35 +1,102 @@
-/* Input.scss */
+.container {
+  position: relative;
+  color: var(--meta-gray-700, #344054);
+  min-width: 200px;
+}
 
-.input-container {
-  margin-bottom: 1rem;
+.input-field {
+  display: flex;
 
-  label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-  }
+  align-items: center;
 
-  input {
-    width: 100%;
-    padding: 0.5rem;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    margin-top: 0.5rem;
-    font-size: 1rem;
+  background-color: var(--meta-white, #ffffff);
 
-    &.error {
-      border-color: red;
-    }
+  border: 1px solid var(--meta-gray-300, #d0d5dd);
 
-    &:focus {
-      border-color: #007bff;
-      outline: none;
+  border-radius: 4px;
+
+  &--icon-leading {
+    padding-left: 16px;
+
+    :first-of-type {
+      user-select: none;
     }
   }
 
-  .error-message {
-    color: red;
-    font-size: 0.875rem;
-    margin-top: 0.25rem;
+  &--icon-trailing {
+    padding-right: 16px;
+
+    :last-of-type {
+      user-select: none;
+    }
   }
+
+  &--disabled {
+    background-color: var(--meta-gray-50, #f9fafb);
+  }
+  &--destructive {
+    border-color: var(--meta-error-500, #d92d20);
+  }
+}
+
+.input {
+  border: none;
+  background-color: inherit;
+  outline: none;
+
+  color: var(--meta-gray-900, #101828);
+
+  font-size: 16px;
+
+  flex-grow: 1;
+
+  height: 44px;
+  line-height: 44px;
+
+  margin: 0 14px;
+
+  &:disabled {
+    pointer-events: none;
+    cursor: pointer;
+    color: var(--meta-gray-500);
+    background-color: var(--meta-gray-50);
+  }
+
+  &--destructive {
+    color: var(--meta-error-300);
+  }
+
+  &--icon-leading {
+    margin-right: 10px;
+  }
+
+  &--icon-trailing {
+    margin-left: 10px;
+  }
+
+  &::placeholder {
+    color: var(--meta-gray-500, #667085);
+  }
+
+  &::-ms-reveal {
+    display: none;
+  }
+}
+
+.span {
+  &--destructive {
+    color: var(--meta-error-500, #d92d20);
+  }
+}
+
+
+.input-label {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 6px;
+  gap: 8px;
+}
+
+.required-field {
+  color: var(--meta-error-500, #d92d20);
 }
