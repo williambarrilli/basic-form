@@ -29,5 +29,5 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
         run: |
-          yarn add -g vercel
+          yarn global add vercel
           vercel --token $VERCEL_TOKEN --prod --confirm
