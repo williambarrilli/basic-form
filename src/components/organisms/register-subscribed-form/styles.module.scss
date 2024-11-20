@@ -9,10 +9,9 @@
   background-color: #ffff;
 }
 
-.container-inputs {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* Define duas colunas de largura igual */
-  gap: 16px; /* Espaçamento entre as colunas */
+.container-section {
+  margin-top: 15px;
+  margin-bottom: 30px;
 }
 
 .title {

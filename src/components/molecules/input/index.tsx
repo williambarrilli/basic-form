@@ -7,12 +7,22 @@ import styles from './styles.module.scss'
 import { NumericFormat } from 'react-number-format'
 import { InputProps } from './types'
 
-const formatCPF = (cpf: string): string => {
-  return cpf
-    .replace(/\D/g, '')
-    .padStart(11, '0')
-    .replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-}
+const formatCPF = (value: string) => {
+  return value
+    .replace(/\D/g, '') 
+    .replace(/(\d{3})(\d)/, '$1.$2') 
+    .replace(/(\d{3})(\d)/, '$1.$2') 
+    .replace(/(\d{3})(\d{1,2})$/, '$1-$2'); 
+};
+
+const formatCNPJ = (value: string) => {
+  return value
+    .replace(/\D/g, '') 
+    .replace(/(\d{2})(\d)/, '$1.$2') 
+    .replace(/(\d{3})(\d)/, '$1.$2') 
+    .replace(/(\d{3})(\d{1,2})$/, '$1/$2') 
+    .replace(/(\d{4})(\d{1,2})$/, '$1-$2');
+};
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (

@@ -1,6 +1,11 @@
-import RegisterEventPage from "@/pages/register-event-page";
+import RegisterEventTemplate from '@/components/template/register-event-template'
+import React from 'react'
 
-
-export default function RegisterEvent() {
-  return <RegisterEventPage/>
+export default function RegisterEventPage() {
+  return (
+    <>
+    <div>RegisterPage</div>
+    <RegisterEventTemplate/>
+    </>
+  )
 }
