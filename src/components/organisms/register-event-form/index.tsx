@@ -6,11 +6,12 @@ import { formRegisterValidator } from '@/types/validators/event-form-register';
 import { RegisterEventFormType } from '@/types/event-form-register';
 import { Input } from '@/components/molecules/input';
 import { useForm } from 'react-hook-form';
+import Button from '@/components/molecules/button';
 
 export default function RegisterEventForm() {
 
-  const {handleSubmit,register, formState: {errors}} = useForm<RegisterEventFormType>({
-    resolver: zodResolver(formRegisterValidator), // Utilizando o zod para validação
+  const {handleSubmit,register, formState: {errors},reset} = useForm<RegisterEventFormType>({
+    resolver: zodResolver(formRegisterValidator),
   });
 
   const onSubmit = (data: RegisterEventFormType) => {
@@ -36,7 +37,8 @@ console.log(errors)
           <Input {...register('contactPhone')} label="Telefone de Contato" destructive={!!errors?.contactPhone?.message} hintText={errors?.contactPhone?.message}/>
           </section>
         <div className={styles["form-actions"]}>
-          <button type="submit" className={styles["btn-register"]}>Registrar</button>
+        <Button  hierarchy='secondary-gray' onClick={()=>reset()}>Limpar Campos</Button>
+          <Button  type="submit" >Registrar</Button>
         </div>
       </form>
     </div>

@@ -47,6 +47,7 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 20px;
+  gap: 20px;
 }
 
 .btn-register {
@@ -61,10 +62,6 @@
 
 .btn-register {
   background-color: #007bff; /* Cor azul */
-}
-
-.btn-signin {
-  background-color: #28a745; /* Cor verde */
 }
 
 .btn-register:hover {

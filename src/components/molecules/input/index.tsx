@@ -1,24 +1,11 @@
-import { forwardRef, ReactNode } from 'react'
+import { forwardRef } from 'react'
 
 import objStr from 'obj-str'
 
 import styles from './styles.module.scss'
 
 import { NumericFormat } from 'react-number-format'
-
-interface InputProps extends React.ComponentPropsWithRef<'input'> {
-  destructive?: boolean
-  hintText?: string
-  icon?: {
-    leading?: React.ReactNode
-    trailing?: React.ReactNode
-  }
-  disabled?: boolean
-  tooltip?: ReactNode
-  mask?: 'text' | 'currency' | 'percentage' | 'cpf'
-  required?: boolean
-  label?: string
-}
+import { InputProps } from './types'
 
 const formatCPF = (cpf: string): string => {
   return cpf
@@ -26,7 +13,6 @@ const formatCPF = (cpf: string): string => {
     .padStart(11, '0')
     .replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
 }
-
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
