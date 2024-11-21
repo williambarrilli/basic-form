@@ -45,7 +45,7 @@ export default function RegisterUserForm() {
           <Button hierarchy="secondary-gray" onClick={() => reset()}>Limpar Campos</Button>
           <Button type="submit">Cadastrar</Button>
         </div>
-      </form>
+        </form>
     </div>
   );
 }

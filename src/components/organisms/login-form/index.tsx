@@ -8,6 +8,7 @@ import styles from './styles.module.scss'; // Ajuste o caminho conforme necessá
 import { UserLoginType } from '@/types/user';
 import { LoginUserFormValidator } from '@/types/validators/user-form';
 import { postLoginUser } from '@/services/user.service';
+import Link from 'next/link';
 
 
 export default function LoginForm() {
@@ -21,9 +22,8 @@ export default function LoginForm() {
 
   return (
     <div className={styles["form-container"]}>
-      <section className={styles.title}>Cadastro de Usuario</section>
+      <section className={styles.title}>Login</section>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h3>Login</h3>
         <section className={styles["container-section"]}>
           <Input {...register('email')} label="Email" destructive={!!errors?.email?.message} hintText={errors?.email?.message} />
           <Input {...register('password')} label="Senha" type="password" destructive={!!errors?.password?.message} hintText={errors?.password?.message} />
@@ -31,6 +31,11 @@ export default function LoginForm() {
         <div className={styles["form-actions"]}>
           <Button type="submit">Entrar</Button>
         </div>
+        <div className={styles["container-register"]}>
+
+        <Link className={styles.link} href={'/register'} > Cadastre-se</Link>
+        </div>
+
       </form>
     </div>
   );
