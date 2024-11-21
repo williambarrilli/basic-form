@@ -2,6 +2,7 @@
   position: relative;
   color: var(--meta-gray-700, #344054);
   min-width: 200px;
+  padding: 5px;
 }
 
 .input-field {
@@ -88,7 +89,6 @@
     color: var(--meta-error-500, #d92d20);
   }
 }
-
 
 .input-label {
   display: inline-flex;

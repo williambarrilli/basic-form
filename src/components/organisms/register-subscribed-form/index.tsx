@@ -21,7 +21,7 @@ export default function RegisterSubscribedForm() {
 
   return (
     <div className={styles["form-container"]}>
-      <section className={styles.title}>Registro de Inscrito</section>
+      <section className={styles.title}>Cadastro de Usuario</section>
       <form onSubmit={handleSubmit(onSubmit)}>
         <section className={styles["container-section"]}>
           <Input {...register('fullName')} label="Nome Completo" destructive={!!errors?.fullName?.message} hintText={errors?.fullName?.message} />
