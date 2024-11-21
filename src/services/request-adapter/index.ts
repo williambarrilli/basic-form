@@ -7,10 +7,11 @@ interface ApiResponse<T = unknown> {
     success: boolean;
     message?: string;
 }
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 
 // Crie uma instância do axios com configuração padrão
 const apiClient: AxiosInstance = axios.create({
-    baseURL: process.env.API_BASE_URL || 'https://api.exemplo.com', // Defina a URL base da API
+    baseURL: API_BASE_URL || 'https://api.exemplo.com', // Defina a URL base da API
     timeout: 10000, // Timeout de 10 segundos para requisições
     headers: {
         'Content-Type': 'application/json',
