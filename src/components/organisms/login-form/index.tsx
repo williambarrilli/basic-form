@@ -16,9 +16,7 @@ export default function LoginForm() {
   });
 
   const onSubmit = (data: UserLoginType) => {
-    console.log('Dados do Formulário:', data);
     postLoginUser(data)
-    alert('Formulário enviado com sucesso!');
   };
 
   return (

@@ -1,5 +1,7 @@
 // requestAdapter.ts
+import { notify, typeToasts } from '@/components/molecules/toastify';
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import { Id, toast } from 'react-toastify';
 
 // Defina a interface de resposta padrão para a API
 interface ApiResponse<T = unknown> {
@@ -17,7 +19,7 @@ const apiClient: AxiosInstance = axios.create({
         'Content-Type': 'application/json',
     },
 });
-
+let id: Id
 // Interceptores de request para adicionar headers ou tokens de autenticação, se necessário
 // Alteração no interceptor de request
 apiClient.interceptors.request.use(
@@ -26,6 +28,7 @@ apiClient.interceptors.request.use(
         if (token && config.headers) {
             config.headers.Authorization = `Bearer ${token}`;
         }
+        id = notify(typeToasts.LOADING, 'Carregando...')
         return config;
     },
     (error) => {
@@ -37,9 +40,11 @@ apiClient.interceptors.request.use(
 // Interceptores de response para manipular dados de resposta e erros
 apiClient.interceptors.response.use(
     (response: AxiosResponse) => {
+        toast.update(id, { render: "Tudo certo!", type: "success", isLoading: false, autoClose: 5000 });
         return response;
     },
     (error) => {
+        toast.update(id, { render: "Erro ao realizar requisição", type: "error", isLoading: false, autoClose: 5000 });
         // Tratamento de erros globais (exemplo: redirecionar no caso de 401)
         if (error.response && error.response.status === 401) {
             // Deslogar usuário, redirecionar, etc.

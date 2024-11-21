@@ -1,8 +1,8 @@
-import HomeProtectedTemplate from '@/components/template/home-protected'
+import HomeTemplate from '@/components/template/home-template'
 import React from 'react'
 
-export default async function HomeProtectedPage() {
+export default async function HomePage() {
   return (
-    <HomeProtectedTemplate />
+    <HomeTemplate />
   )
 }
