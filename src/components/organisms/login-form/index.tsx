@@ -9,7 +9,7 @@ import { UserLoginType } from '@/types/user';
 import { LoginUserFormValidator } from '@/types/validators/user-form';
 import { postLoginUser } from '@/services/user.service';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 
 export default function LoginForm() {
