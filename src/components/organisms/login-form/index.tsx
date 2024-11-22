@@ -9,15 +9,18 @@ import { UserLoginType } from '@/types/user';
 import { LoginUserFormValidator } from '@/types/validators/user-form';
 import { postLoginUser } from '@/services/user.service';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 
 export default function LoginForm() {
   const { handleSubmit, register, formState: { errors } } = useForm<UserLoginType>({
     resolver: zodResolver(LoginUserFormValidator),
   });
+  const router = useRouter()
 
   const onSubmit = (data: UserLoginType) => {
     postLoginUser(data)
+    router.push('/protected/home')
   };
 
   return (

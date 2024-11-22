@@ -1,0 +1,44 @@
+.sideMenu {
+  width: 250px;
+  height: 100vh;
+  background-color: #1e293b;
+  color: #ffffff;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sideMenu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sideMenu li {
+  margin: 20px 0;
+}
+
+.sideMenu a {
+  text-decoration: none;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.2s;
+}
+
+.sideMenu a:hover {
+  background-color: #374151;
+}
+
+.sideMenu .icon {
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.sideMenu .title {
+  font-size: 16px;
+}
