@@ -1,23 +1,24 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-// import jwt from 'jsonwebtoken'; // Instale com `npm install jsonwebtoken @types/jsonwebtoken`
+import jwt, { JwtPayload } from 'jsonwebtoken';
 
 export function middleware(request: NextRequest) {
-    console.log(request)
-    // TODO Descomentar
-    // const token = request.cookies.get('token')?.value; // Obtém o token do cookie
+    const token = request.cookies.get('JWT_TOKEN')?.value;
 
-    // if (!token) {
-    //     return NextResponse.redirect(new URL('/login', request.url));
-    // }
+    if (!token) {
+        return NextResponse.redirect(new URL('/login', request.url));
+    }
 
-    // try {
-    //     const secretKey = process.env.JWT_SECRET as string; // Certifique-se de configurar essa variável de ambiente
-    //     jwt.verify(token, secretKey); // Verifica se o token é válido
-    // } catch (error) {
-    //     console.error(error);
-    //     return NextResponse.redirect(new URL('/login', request.url)); // Redireciona se inválido
-    // }
+    try {
+        const decoded = jwt.decode(token) as JwtPayload;
+        if (decoded?.exp && Date.now() >= decoded.exp * 1000) {
+            console.error('Token expirado');
+            return NextResponse.redirect(new URL('/login', request.url));
+        }
+    } catch (error) {
+        console.error(error);
+        return NextResponse.redirect(new URL('/login', request.url));
+    }
 
     return NextResponse.next();
 }

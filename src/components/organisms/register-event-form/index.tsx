@@ -18,7 +18,7 @@ export default function RegisterEventForm() {
     console.log('Dados do Formulário:', data);
     alert('Formulário enviado com sucesso!');
   };
-console.log(errors)
+
   return (
 
     <div className={styles["form-container"]}>
@@ -31,10 +31,10 @@ console.log(errors)
           <Input {...register('dateSubscribedEnd')} label="Data fim das inscrições"  type='date' destructive={!!errors?.dateSubscribedEnd?.message} hintText={errors?.dateSubscribedEnd?.message}/>
           <Input {...register('estimatedParticipants')} label="Inscrições Estimadas" destructive={!!errors?.estimatedParticipants?.message} hintText={errors?.estimatedParticipants?.message}/>
           <Input {...register('averageFee')} label="Valor Médio da Inscrição" mask='currency'destructive={!!errors?.averageFee?.message} hintText={errors?.averageFee?.message}/>
-          <Input {...register('organizer')} label="Entidade Realizadora"destructive={!!errors?.organizer?.message} hintText={errors?.organizer?.message}/>
-          <Input {...register('budgetResponsible')} label="Responsável pelo Orçamento"destructive={!!errors?.budgetResponsible?.message} hintText={errors?.budgetResponsible?.message}/>
-          <Input {...register('contactEmail')} label="E-mail de Contato" type='email'destructive={!!errors?.contactEmail?.message} hintText={errors?.contactEmail?.message}/>
-          <Input {...register('contactPhone')} label="Telefone de Contato" destructive={!!errors?.contactPhone?.message} hintText={errors?.contactPhone?.message}/>
+          <Input {...register('company')} label="Entidade Realizadora"destructive={!!errors?.company?.message} hintText={errors?.company?.message}/>
+          <Input {...register('responsible')} label="Responsável pelo Orçamento"destructive={!!errors?.responsible?.message} hintText={errors?.responsible?.message}/>
+          <Input {...register('email')} label="E-mail de Contato" type='email'destructive={!!errors?.email?.message} hintText={errors?.email?.message}/>
+          <Input {...register('phone')} label="Telefone de Contato" destructive={!!errors?.phone?.message} hintText={errors?.phone?.message}/>
           </section>
         <div className={styles["form-actions"]}>
         <Button  hierarchy='secondary-gray' onClick={()=>reset()}>Limpar Campos</Button>

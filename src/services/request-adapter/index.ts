@@ -5,6 +5,7 @@ import { Id, toast } from 'react-toastify';
 
 // Defina a interface de resposta padrão para a API
 interface ApiResponse<T = unknown> {
+    token: boolean;
     data: T;
     success: boolean;
     message?: string;
@@ -24,7 +25,7 @@ let id: Id
 // Alteração no interceptor de request
 apiClient.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('JWT_TOKEN');
         if (token && config.headers) {
             config.headers.Authorization = `Bearer ${token}`;
         }

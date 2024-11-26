@@ -4,7 +4,7 @@ export type UserRegisterType = {
     confirmPassword: string
     fullName: string
     birthDate: string
-    documentCPF: string
+    personalDocument: string
 }
 
 export type UserLoginType = {

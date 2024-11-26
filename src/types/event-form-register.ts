@@ -1,12 +1,13 @@
 export type RegisterEventFormType = {
     eventName: string
-    eventDate: string
-    estimatedParticipants: string
-    averageFee: string
-    organizer: string
-    budgetResponsible: string
-    contactEmail: string
-    contactPhone: string
-    dateSubscribedStart: string
-    dateSubscribedEnd: string
+    eventDate: Date
+    estimatedParticipants: number
+    averageFee: number
+    company: string
+    responsible: string
+    email: string
+    phone: string
+    dateSubscribedStart: Date
+    dateSubscribedEnd: Date
 }
+
