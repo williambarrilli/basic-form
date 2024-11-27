@@ -3,7 +3,7 @@ import requestAdapter from './request-adapter';
 import Cookies from 'js-cookie';
 
 export async function postRegisterUser(data: UserRegisterType) {
-    data.birthDate = '2002/05/20'
+    // data.birthDate = '2002/05/20'
     try {
         await requestAdapter.post('/api/v1/register', data);
 

@@ -1,0 +1,109 @@
+.container {
+  flex: 1;
+  font-family: Arial, sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #1e293b;
+  color: white;
+}
+
+.header .nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s;
+}
+
+.header .nav a:hover {
+  color: #00bcd4;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px;
+  background-color: #f5f5f5;
+}
+
+.heroContent {
+  max-width: 500px;
+}
+
+.heroImage {
+  flex-shrink: 0;
+}
+
+.ctaButton {
+  background-color: #00bcd4;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.ctaButton:hover {
+  background-color: #0097a7;
+}
+
+.section {
+  padding: 50px;
+  text-align: center;
+}
+
+.features {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.feature {
+  max-width: 250px;
+}
+
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.contactForm input,
+.contactForm textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.contactForm button {
+  background-color: #00bcd4;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.contactForm button:hover {
+  background-color: #0097a7;
+}
+
+.footer {
+  padding: 20px;
+  text-align: center;
+  background-color: #1e293b;
+  color: white;
+}

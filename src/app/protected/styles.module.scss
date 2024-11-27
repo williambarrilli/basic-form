@@ -1,0 +1,9 @@
+.container {
+  display: flex; /* Cria um layout flexível */
+}
+
+.content {
+  flex: 1; /* Faz o conteúdo principal ocupar o restante do espaço */
+  overflow-y: auto; /* Permite rolar o conteúdo, se necessário */
+  background-color: #f9f9f9; /* Cor de fundo do conteúdo */
+}

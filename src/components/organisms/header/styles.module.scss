@@ -1,0 +1,20 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #1e293b;
+  color: white;
+}
+
+.header .nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+
+.header .nav a:hover {
+  color: #00bcd4;
+}

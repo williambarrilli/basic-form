@@ -1,12 +1,6 @@
-import RegisterEventForm from '@/components/organisms/register-event-form'
-import React from 'react'
+import RegisterEventForm from "@/components/organisms/register-event-form";
+import React from "react";
 
 export default function RegisterEventTemplate() {
-  return (
-    <>
-    
-    <div>RegisterTemplate</div>
-    <RegisterEventForm/>
-    </>
-  )
+  return <RegisterEventForm />;
 }

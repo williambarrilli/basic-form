@@ -19,6 +19,7 @@ export default function LoginForm() {
   const router = useRouter()
 
   const onSubmit = (data: UserLoginType) => {
+    console.log(data)
     postLoginUser(data).then(() => {
       router.push('/protected/home')
     })
