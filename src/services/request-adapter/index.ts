@@ -14,22 +14,23 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 
 // Crie uma instância do axios com configuração padrão
 const apiClient: AxiosInstance = axios.create({
-    baseURL: API_BASE_URL || 'https://api.exemplo.com', // Defina a URL base da API
-    timeout: 10000, // Timeout de 10 segundos para requisições
+    baseURL: API_BASE_URL || 'https://controla-tche.up.railway.app',
+    timeout: 10000, 
     headers: {
         'Content-Type': 'application/json',
     },
 });
-let id: Id
+const id: Id[] = []
 // Interceptores de request para adicionar headers ou tokens de autenticação, se necessário
 // Alteração no interceptor de request
 apiClient.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
         const token = localStorage.getItem('JWT_TOKEN');
         if (token && config.headers) {
-            config.headers.Authorization = `Bearer ${token}`;
+            config.headers['Authorization'] = `Bearer ${token}`;
         }
-        id = notify(typeToasts.LOADING, 'Carregando...')
+        id.push(notify(typeToasts.LOADING, 'Carregando...'))
+
         return config;
     },
     (error) => {
@@ -37,15 +38,17 @@ apiClient.interceptors.request.use(
     }
 );
 
-
 // Interceptores de response para manipular dados de resposta e erros
 apiClient.interceptors.response.use(
     (response: AxiosResponse) => {
-        toast.update(id, { render: "Tudo certo!", type: "success", isLoading: false, autoClose: 5000 });
+        toast.update(id[0], { render: "Tudo certo!", type: "success", isLoading: false, autoClose: 5000 });
+        id.shift()
         return response;
     },
     (error) => {
-        toast.update(id, { render: "Erro ao realizar requisição", type: "error", isLoading: false, autoClose: 5000 });
+        toast.update(id[0], { render: "Erro ao realizar requisição", type: "error", isLoading: false, autoClose: 5000 });
+        id.shift()
+
         // Tratamento de erros globais (exemplo: redirecionar no caso de 401)
         if (error.response && error.response.status === 401) {
             // Deslogar usuário, redirecionar, etc.
