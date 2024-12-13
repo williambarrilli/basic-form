@@ -3,12 +3,6 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosR
 import { Id, toast } from 'react-toastify';
 
 // Defina a interface de resposta padrão para a API
-export interface ApiResponse<T = unknown> {
-    limit: number
-    skip: number
-    total: number
-    data: T
-}
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 
 // Crie uma instância do axios com configuração padrão
@@ -59,23 +53,23 @@ apiClient.interceptors.response.use(
 
 // Funções genéricas para realizar requisições
 export const requestAdapter = {
-    get: async <T = unknown>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> => {
-        const response = await apiClient.get<ApiResponse<T>>(url, config);
+    get: async <T = unknown>(url: string, config?: AxiosRequestConfig): Promise<T> => {
+        const response = await apiClient.get<T>(url, config);
         return response.data;
     },
 
-    post: async <T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<ApiResponse<T>> => {
-        const response = await apiClient.post<ApiResponse<T>>(url, data, config);
+    post: async <T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T>=> {
+        const response = await apiClient.post<T>(url, data, config);
         return response.data;
     },
 
-    put: async <T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<ApiResponse<T>> => {
-        const response = await apiClient.put<ApiResponse<T>>(url, data, config);
+    put: async <T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> => {
+        const response = await apiClient.put<T>(url, data, config);
         return response.data;
     },
 
-    delete: async <T = unknown>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> => {
-        const response = await apiClient.delete<ApiResponse<T>>(url, config);
+    delete: async <T = unknown>(url: string, config?: AxiosRequestConfig): Promise<T> => {
+        const response = await apiClient.delete<T>(url, config);
         return response.data;
     },
 };

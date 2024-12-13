@@ -12,7 +12,7 @@ export default function EventList() {
   useEffect(() => {
     const fetchEvent = async () => {
       const response = await fetchAllEvents();
-      setEventList(response.data);
+      setEventList(response);
     };
 
     fetchEvent();

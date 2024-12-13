@@ -1,12 +1,13 @@
 import HomeEventTemplate from "@/components/template/home-event-template";
-import React from "react";
+export const dynamic = "force-dynamic";
+export const dynamicParams = false;
 
-export default function HomeEventPage({
+export default async function HomeEventPage({
   params,
 }: {
-  params: { eventId: string };
+  params: Promise<{ eventId: string }>;
 }) {
-  const { eventId } = params;
+  const { eventId } = await params;
 
   return (
     <>
