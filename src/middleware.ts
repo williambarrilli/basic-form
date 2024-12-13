@@ -12,11 +12,17 @@ export function middleware(request: NextRequest) {
     try {
         const decoded = jwt.decode(token) as JwtPayload;
         if (decoded?.exp && Date.now() >= decoded.exp * 1000) {
-            console.error('Token expirado');
+
+            const response = NextResponse.next();
+            response.cookies.set('JWT_TOKEN', '', { expires: new Date(0), path: '/' });
             return NextResponse.redirect(new URL('/login', request.url));
         }
+
+        if (request.nextUrl.pathname === '/login') {
+            return NextResponse.redirect(new URL('/protected/home', request.url));
+        }
     } catch (error) {
-        console.error(error);
+        console.error('Erro ao decodificar o token', error);
         return NextResponse.redirect(new URL('/login', request.url));
     }
 
@@ -24,6 +30,6 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: '/protected/:path*',
+    matcher: ['/protected/:path*', '/login'],
 
 };

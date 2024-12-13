@@ -14,7 +14,7 @@ export default function EventCard({ event }: EventCardProps) {
     <div className={styles.card}>
       <h3>{event.eventName}</h3>
       <p>
-        <strong>Data:</strong> {event.eventDate}
+        <strong>Data:</strong> {new Date(event?.eventDate).toLocaleDateString()}
       </p>
       <p>
         <strong>Empresa:</strong> {event.company}

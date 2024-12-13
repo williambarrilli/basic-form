@@ -1,14 +1,13 @@
-// requestAdapter.ts
 import { notify, typeToasts } from '@/components/molecules/toastify';
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { Id, toast } from 'react-toastify';
 
 // Defina a interface de resposta padrão para a API
-interface ApiResponse<T = unknown> {
-    token: boolean;
-    data: T;
-    success: boolean;
-    message?: string;
+export interface ApiResponse<T = unknown> {
+    limit: number
+    skip: number
+    total: number
+    data: T
 }
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 

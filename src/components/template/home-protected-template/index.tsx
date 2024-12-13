@@ -2,10 +2,8 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import EventList from "@/components/organisms/list-events";
-import { getFindAllEvents } from "@/services/event.service";
 
 export default function HomeProtectedTemplate() {
-  getFindAllEvents();
   return (
     <div className={styles.container}>
       <section className={styles.hero}>

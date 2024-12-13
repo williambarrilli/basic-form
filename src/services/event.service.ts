@@ -1,6 +1,7 @@
-import requestAdapter from './request-adapter';
+import { EventDto } from '@/types';
+import requestAdapter, { ApiResponse } from './request-adapter';
 
-export async function postRegisterForm(data: unknown) {
+export async function createEvent(data: EventDto) {
     try {
         const response = await requestAdapter.post('/api/v1/events', data);
         console.log(response.data);
@@ -10,12 +11,20 @@ export async function postRegisterForm(data: unknown) {
     }
 }
 
-export async function getFindAllEvents() {
+export async function fetchAllEvents():Promise<ApiResponse<EventDto[]>> {
     try {
-        const response = await requestAdapter.get('/api/v1/events');
-        console.log(response.data);
+        const reponse = await requestAdapter.get<EventDto[]>('/api/v1/events');
+        return reponse
     } catch (error) {
         throw new Error(`Erro ao buscar eventos: ${error}`)
+    }
+}
 
+export async function findOneEvent(eventId:string){
+    try {
+        const reponse = await requestAdapter.get<EventDto>(`/api/v1/events/${eventId}`);
+        return reponse
+    } catch (error) {
+        throw new Error(`Erro ao buscar eventos: ${error}`)
     }
 }
